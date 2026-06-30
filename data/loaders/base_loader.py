@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import os
 import pandas as pd
+from tqdm import tqdm
 
 COLUMN_NAMES = ["timestamp", "can_id", "dlc",
                 "data_0", "data_1", "data_2", "data_3",
@@ -10,20 +11,42 @@ REQUIRED_COLUMNS = COLUMN_NAMES + ["label"]
 
 
 class BaseLoader(ABC):
-    """
-    Schema contract for all dataset loaders.
-    Every loader must implement _build() which returns a raw dataframe
-    matching COLUMN_NAMES + label. This base class handles validation
-    and processed-folder caching so individual loaders don't repeat it.
-    """
+    name = "base"
 
-    name = "base"  # override in subclass, e.g. "otids"
+    @abstractmethod
+    def _parse_line(self, line):
+        """
+        Dataset-specific line parser.
+        Each loader implements this for its own raw file format.
+        Returns a list of values matching COLUMN_NAMES, or None if line is malformed.
+        """
+        raise NotImplementedError
 
     @abstractmethod
     def _build(self, raw_dir):
-        """Dataset-specific parsing + labeling. Must return a dataframe
-        with columns matching REQUIRED_COLUMNS (extra columns allowed)."""
+        """
+        Dataset-specific build logic.
+        Calls self._parse_file_with_progress() for each raw file,
+        applies labels, returns one combined dataframe.
+        """
         raise NotImplementedError
+
+    def _parse_file_with_progress(self, filepath, column_names):
+        """
+        Generic file reader with tqdm progress bar.
+        Lives in base class so every loader gets it automatically.
+        Each loader's _parse_line() handles the actual line format.
+        """
+        with open(filepath, "r") as f:
+            lines = f.readlines()
+
+        rows = []
+        for line in tqdm(lines, desc=f"Loading {os.path.basename(filepath)}", unit="lines"):
+            row = self._parse_line(line)
+            if row is not None:
+                rows.append(row)
+
+        return pd.DataFrame(rows, columns=column_names)
 
     def validate(self, df):
         for col in REQUIRED_COLUMNS:
@@ -50,6 +73,7 @@ class BaseLoader(ABC):
         cache_path = os.path.join(processed_dir, f"{self.name}_clean.csv")
 
         if use_cache and os.path.exists(cache_path):
+            print(f"Loading cached dataset from {cache_path}")
             return pd.read_csv(cache_path)
 
         df = self._build(raw_dir)
@@ -57,5 +81,6 @@ class BaseLoader(ABC):
 
         os.makedirs(processed_dir, exist_ok=True)
         df.to_csv(cache_path, index=False)
+        print(f"Dataset cached to {cache_path}")
 
         return df

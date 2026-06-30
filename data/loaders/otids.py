@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from data.loaders.base_loader import BaseLoader, COLUMN_NAMES
 
@@ -9,32 +10,6 @@ FILES = {
     "Fuzzy_attack_dataset.txt": "fuzzy",
     "Impersonation_attack_dataset.txt": "impersonation",
 }
-
-
-def _parse_line(line):
-    parts = line.strip().split()
-    if not parts:
-        return None
-    try:
-        timestamp = float(parts[1])
-        can_id = int(parts[3], 16)
-        dlc = int(parts[6])
-        data_bytes = [int(b, 16) for b in parts[7:7 + dlc]]
-        while len(data_bytes) < 8:
-            data_bytes.append(0)
-        return [timestamp, can_id, dlc] + data_bytes
-    except (IndexError, ValueError):
-        return None
-
-
-def _parse_file(filepath):
-    rows = []
-    with open(filepath, "r") as f:
-        for line in f:
-            row = _parse_line(line)
-            if row is not None:
-                rows.append(row)
-    return pd.DataFrame(rows, columns=COLUMN_NAMES)
 
 
 def _label_attack_free(df):
@@ -68,11 +43,30 @@ _LABEL_FUNCS = {
 class OTIDSLoader(BaseLoader):
     name = "otids"
 
+    def _parse_line(self, line):
+        """
+        Parses one raw HCRL Car-Hacking dataset line.
+        Format: Timestamp: <val> ID: <hex> 000 DLC: <val> <byte0> ... <byteN>
+        """
+        parts = line.strip().split()
+        if not parts:
+            return None
+        try:
+            timestamp = float(parts[1])
+            can_id = int(parts[3], 16)
+            dlc = int(parts[6])
+            data_bytes = [int(b, 16) for b in parts[7:7 + dlc]]
+            while len(data_bytes) < 8:
+                data_bytes.append(0)
+            return [timestamp, can_id, dlc] + data_bytes
+        except (IndexError, ValueError):
+            return None
+
     def _build(self, raw_dir):
         all_dfs = []
         for filename, key in FILES.items():
-            filepath = f"{raw_dir}/{RAW_SUBDIR}/{filename}"
-            df = _parse_file(filepath)
+            filepath = os.path.join(raw_dir, RAW_SUBDIR, filename)
+            df = self._parse_file_with_progress(filepath, COLUMN_NAMES)
             df = _LABEL_FUNCS[key](df)
             df["source_file"] = key
             all_dfs.append(df)

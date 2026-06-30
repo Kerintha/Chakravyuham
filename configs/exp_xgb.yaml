@@ -13,6 +13,7 @@ params:
 
 split:
   test_size: 0.25
+  val_size: 0.15
   stratify: true
   shuffle: true
 
