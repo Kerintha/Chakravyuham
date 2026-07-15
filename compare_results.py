@@ -19,10 +19,17 @@ def load_run(run_folder):
     with open(os.path.join(base, "benchmark.json")) as f:
         benchmark = json.load(f)
 
+    val_metrics = None
+    val_path = os.path.join(base, "val_metrics.json")
+    if os.path.exists(val_path):
+        with open(val_path) as f:
+            val_metrics = json.load(f)
+
     return {
         "run_name": run_folder,
         "config": config,
         "metrics": metrics,
+        "val_metrics": val_metrics,
         "benchmark": benchmark,
     }
 
@@ -52,28 +59,69 @@ def select_runs():
     return selected
 
 
+def _fmt(val, width, prec=4):
+    if val is None:
+        return f"{'--':<{width}}"
+    return f"{val:<{width}.{prec}f}"
+
+
 def print_console_table(runs):
-    header = f"{'Run':40} {'Model':15} {'Accuracy':10} {'Latency(ms)':12} {'Size(MB)':10}"
+    # Test accuracy/latency/size, plus fuzzy and impersonation recall
+    # (test and val side by side) since those two classes have been the
+    # focus of recent split/feature debugging.
+    header = (
+        f"{'Run':35} {'Model':10} {'Feats':14} "
+        f"{'TestAcc':9} {'ValAcc':9} "
+        f"{'FuzzyR(t/v)':14} {'ImpR(t/v)':14} "
+        f"{'Lat(ms)':9} {'Size(MB)':9}"
+    )
     print(header)
     print("-" * len(header))
     for run in runs:
-        name = run["run_name"][:38]
-        model = run["config"].get("model", "?")
-        accuracy = run["metrics"]["accuracy"]
+        name = run["run_name"][:33]
+        model = run["config"].get("model", "?")[:10]
+        feats = ",".join(run["config"].get("features", []))[:14]
+
+        test_acc = run["metrics"]["accuracy"]
+        val_acc = run["val_metrics"]["accuracy"] if run["val_metrics"] else None
+
+        fuzzy_t = run["metrics"]["per_class"].get("fuzzy", {}).get("recall")
+        fuzzy_v = (run["val_metrics"]["per_class"].get("fuzzy", {}).get("recall")
+                   if run["val_metrics"] else None)
+        imp_t = run["metrics"]["per_class"].get("impersonation", {}).get("recall")
+        imp_v = (run["val_metrics"]["per_class"].get("impersonation", {}).get("recall")
+                 if run["val_metrics"] else None)
+
+        fuzzy_str = f"{_fmt(fuzzy_t, 6, 3).strip()}/{_fmt(fuzzy_v, 6, 3).strip()}"
+        imp_str = f"{_fmt(imp_t, 6, 3).strip()}/{_fmt(imp_v, 6, 3).strip()}"
+
         latency = run["benchmark"]["latency_ms"]
         size = run["benchmark"]["model_size_mb"]
-        print(f"{name:40} {model:15} {accuracy:<10.4f} {latency:<12.4f} {size:<10.2f}")
+
+        print(
+            f"{name:35} {model:10} {feats:14} "
+            f"{_fmt(test_acc, 9)} {_fmt(val_acc, 9)} "
+            f"{fuzzy_str:14} {imp_str:14} "
+            f"{latency:<9.4f} {size:<9.2f}"
+        )
 
 
 def save_csv(runs, out_path):
     all_classes = sorted({
-        cls for run in runs for cls in run["metrics"]["per_class"].keys()
+        cls
+        for run in runs
+        for cls in list(run["metrics"]["per_class"].keys())
+                  + (list(run["val_metrics"]["per_class"].keys()) if run["val_metrics"] else [])
     })
 
-    fieldnames = ["run_name", "dataset", "model", "features", "accuracy",
+    fieldnames = ["run_name", "dataset", "model", "features",
+                  "test_accuracy", "val_accuracy",
                   "latency_ms", "model_size_mb", "memory_mb"]
     for cls in all_classes:
-        fieldnames += [f"{cls}_precision", f"{cls}_recall", f"{cls}_f1"]
+        fieldnames += [
+            f"test_{cls}_precision", f"test_{cls}_recall", f"test_{cls}_f1",
+            f"val_{cls}_precision", f"val_{cls}_recall", f"val_{cls}_f1",
+        ]
 
     with open(out_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -85,36 +133,53 @@ def save_csv(runs, out_path):
                 "dataset": run["config"].get("dataset"),
                 "model": run["config"].get("model"),
                 "features": ",".join(run["config"].get("features", [])),
-                "accuracy": run["metrics"]["accuracy"],
+                "test_accuracy": run["metrics"]["accuracy"],
+                "val_accuracy": run["val_metrics"]["accuracy"] if run["val_metrics"] else None,
                 "latency_ms": run["benchmark"]["latency_ms"],
                 "model_size_mb": run["benchmark"]["model_size_mb"],
                 "memory_mb": run["benchmark"]["memory_mb"],
             }
             for cls in all_classes:
-                per_class = run["metrics"]["per_class"].get(cls)
-                if per_class:
-                    row[f"{cls}_precision"] = per_class["precision"]
-                    row[f"{cls}_recall"] = per_class["recall"]
-                    row[f"{cls}_f1"] = per_class["f1"]
+                test_pc = run["metrics"]["per_class"].get(cls)
+                if test_pc:
+                    row[f"test_{cls}_precision"] = test_pc["precision"]
+                    row[f"test_{cls}_recall"] = test_pc["recall"]
+                    row[f"test_{cls}_f1"] = test_pc["f1"]
+
+                if run["val_metrics"]:
+                    val_pc = run["val_metrics"]["per_class"].get(cls)
+                    if val_pc:
+                        row[f"val_{cls}_precision"] = val_pc["precision"]
+                        row[f"val_{cls}_recall"] = val_pc["recall"]
+                        row[f"val_{cls}_f1"] = val_pc["f1"]
             writer.writerow(row)
 
 
-def save_combined_confusion_matrices(runs, out_path):
-    n = len(runs)
+def _plot_confusion_grid(runs, metrics_key, out_path, title_suffix=""):
+    """
+    metrics_key: "metrics" for test, "val_metrics" for val.
+    Skips runs missing that key (e.g. older runs with no val_metrics.json).
+    """
+    usable_runs = [r for r in runs if r.get(metrics_key) is not None]
+    if not usable_runs:
+        print(f"No runs have {metrics_key} — skipping {out_path}")
+        return
+
+    n = len(usable_runs)
     cols = min(n, 3)
     rows = (n + cols - 1) // cols
 
     fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 5 * rows))
     axes = np.array(axes).reshape(-1) if n > 1 else [axes]
 
-    for i, run in enumerate(runs):
-        cm = np.array(run["metrics"]["confusion_matrix"])
-        labels = run["metrics"]["confusion_matrix_labels"]
+    for i, run in enumerate(usable_runs):
+        cm = np.array(run[metrics_key]["confusion_matrix"])
+        labels = run[metrics_key]["confusion_matrix_labels"]
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
         disp.plot(ax=axes[i], cmap="Blues", values_format="d", colorbar=False)
-        axes[i].set_title(run["run_name"], fontsize=9)
+        axes[i].set_title(f"{run['run_name']}{title_suffix}", fontsize=9)
 
-    for j in range(len(runs), len(axes)):
+    for j in range(len(usable_runs), len(axes)):
         axes[j].axis("off")
 
     plt.tight_layout()
@@ -135,8 +200,11 @@ def main():
     csv_path = os.path.join(comparison_dir, "comparison.csv")
     save_csv(runs, csv_path)
 
-    cm_path = os.path.join(comparison_dir, "confusion_matrices.png")
-    save_combined_confusion_matrices(runs, cm_path)
+    test_cm_path = os.path.join(comparison_dir, "confusion_matrices_test.png")
+    _plot_confusion_grid(runs, "metrics", test_cm_path, title_suffix=" (test)")
+
+    val_cm_path = os.path.join(comparison_dir, "confusion_matrices_val.png")
+    _plot_confusion_grid(runs, "val_metrics", val_cm_path, title_suffix=" (val)")
 
     print(f"\nComparison saved to: {comparison_dir}")
 

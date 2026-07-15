@@ -1,0 +1,62 @@
+{
+  "accuracy": 0.8385921546952025,
+  "per_class": {
+    "dos": {
+      "precision": 0.5645185143052158,
+      "recall": 1.0,
+      "f1": 0.7216514335158403,
+      "support": 49624
+    },
+    "fuzzy": {
+      "precision": 0.18467336683417085,
+      "recall": 0.06554047359556128,
+      "f1": 0.09674588665447897,
+      "support": 20186
+    },
+    "impersonation": {
+      "precision": 0.6390650809382227,
+      "recall": 0.5257943518795357,
+      "f1": 0.5769225033924338,
+      "support": 73582
+    },
+    "normal": {
+      "precision": 0.9119134999327022,
+      "recall": 0.89234900130303,
+      "f1": 0.9020251769156281,
+      "support": 569442
+    }
+  },
+  "confusion_matrix": [
+    [
+      49624,
+      0,
+      0,
+      0
+    ],
+    [
+      439,
+      1323,
+      2,
+      18422
+    ],
+    [
+      4201,
+      30,
+      38689,
+      30662
+    ],
+    [
+      33641,
+      5811,
+      21849,
+      508141
+    ]
+  ],
+  "confusion_matrix_labels": [
+    "dos",
+    "fuzzy",
+    "impersonation",
+    "normal"
+  ],
+  "classification_report_text": "               precision    recall  f1-score   support\n\n          dos       0.56      1.00      0.72     49624\n        fuzzy       0.18      0.07      0.10     20186\nimpersonation       0.64      0.53      0.58     73582\n       normal       0.91      0.89      0.90    569442\n\n     accuracy                           0.84    712834\n    macro avg       0.58      0.62      0.57    712834\n weighted avg       0.84      0.84      0.83    712834\n"
+}

@@ -7,15 +7,16 @@ model: random_forest
 
 params:
   n_estimators: 100
-  max_depth: 16
-  min_samples_leaf: 10
-  min_samples_split: 20
+  max_depth: 15
   random_state: 42
 
+feature_params:
+  window_size_ms: 50
+
 split:
-  test_size: 0.25
+  train_size: 0.70
   val_size: 0.15
-  stratify: true
-  shuffle: true
+  test_size: 0.15
+  method: temporal
 
 results_dir: results/exp_rf_basic

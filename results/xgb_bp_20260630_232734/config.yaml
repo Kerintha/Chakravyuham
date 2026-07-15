@@ -1,0 +1,24 @@
+dataset: otids
+
+features:
+  - basic
+  - payload
+
+model: xgboost
+
+params:
+  n_estimators: 100
+  max_depth: 6
+  learning_rate: 0.1
+  random_state: 42
+
+feature_params:
+  window_size_ms: 50
+
+split:
+  train_size: 0.70
+  val_size: 0.15
+  test_size: 0.15
+  method: temporal
+
+results_dir: results/exp_xgb_all_features

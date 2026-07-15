@@ -4,9 +4,9 @@ import numpy as np
 from sklearn.metrics import ConfusionMatrixDisplay
 
 
-def plot_confusion_matrix(metrics, results_dir):
+def plot_confusion_matrix(metrics, results_dir, prefix=""):
     """
-    Saves a confusion matrix heatmap as confusion_matrix.png
+    Saves a confusion matrix heatmap as {prefix}confusion_matrix.png
     using data already computed in metrics.json (no retraining needed).
     """
     cm = np.array(metrics["confusion_matrix"])
@@ -18,13 +18,13 @@ def plot_confusion_matrix(metrics, results_dir):
     plt.title("Confusion Matrix")
     plt.tight_layout()
 
-    out_path = os.path.join(results_dir, "confusion_matrix.png")
+    out_path = os.path.join(results_dir, f"{prefix}confusion_matrix.png")
     plt.savefig(out_path, dpi=150)
     plt.close(fig)
     return out_path
 
 
-def plot_per_class_metrics(metrics, results_dir):
+def plot_per_class_metrics(metrics, results_dir, prefix=""):
     """
     Saves a grouped bar chart of precision/recall/f1 per class.
     """
@@ -50,17 +50,17 @@ def plot_per_class_metrics(metrics, results_dir):
     ax.legend()
     plt.tight_layout()
 
-    out_path = os.path.join(results_dir, "per_class_metrics.png")
+    out_path = os.path.join(results_dir, f"{prefix}per_class_metrics.png")
     plt.savefig(out_path, dpi=150)
     plt.close(fig)
     return out_path
 
 
-def generate_visuals(metrics, results_dir):
+def generate_visuals(metrics, results_dir, prefix=""):
     """
     Generates all standard visuals for one experiment run.
     Called from run_experiment.py after metrics are computed.
     """
-    cm_path = plot_confusion_matrix(metrics, results_dir)
-    bar_path = plot_per_class_metrics(metrics, results_dir)
+    cm_path = plot_confusion_matrix(metrics, results_dir, prefix=prefix)
+    bar_path = plot_per_class_metrics(metrics, results_dir, prefix=prefix)
     return {"confusion_matrix_png": cm_path, "per_class_metrics_png": bar_path}

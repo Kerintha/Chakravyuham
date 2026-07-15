@@ -46,7 +46,7 @@ class OTIDSLoader(BaseLoader):
     def _parse_line(self, line):
         """
         Parses one raw HCRL Car-Hacking dataset line.
-        Format: Timestamp: <val> ID: <hex> 000 DLC: <val> <byte0> ... <byteN>
+        Format: Timestamp: <val> ID: <hex> 000 DLC: <val> <byte0>...<byteN>
         """
         parts = line.strip().split()
         if not parts:
@@ -67,6 +67,16 @@ class OTIDSLoader(BaseLoader):
         for filename, key in FILES.items():
             filepath = os.path.join(raw_dir, RAW_SUBDIR, filename)
             df = self._parse_file_with_progress(filepath, COLUMN_NAMES)
+
+            # normalize timestamps to relative time within each file.
+            # the impersonation file uses absolute Unix timestamps (~1.48 billion
+            # seconds) while the other three files use relative timestamps starting
+            # from 0. without this normalization the < 250s labeling rule would
+            # label every single impersonation-file row as attack, since Unix
+            # timestamps are always >> 250. applied to all files defensively so
+            # this never silently breaks for future dataset additions.
+            df["timestamp"] = df["timestamp"] - df["timestamp"].min()
+
             df = _LABEL_FUNCS[key](df)
             df["source_file"] = key
             all_dfs.append(df)

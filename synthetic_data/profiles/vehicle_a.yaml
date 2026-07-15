@@ -1,0 +1,1436 @@
+vehicle_name: vehicle_a
+description: "Synthetic profile calibrated directly from real HCRL Car-Hacking attack-free\
+  \ traffic (Kia Soul). Used as the control/baseline vehicle profile \u2014 normal\
+  \ traffic generated from this profile should closely match real attack-free distributions\
+  \ on timing and per-byte statistics."
+source: per_id_stats_attack_free (derived from Attack_free_dataset.txt)
+num_ecus: 45
+ecus:
+- id: '0x153'
+  period_ms: 8.17
+  jitter_ms: 3.337
+  dlc: 7
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 128
+    2:
+      mode: static
+      value: 16
+    3:
+      mode: static
+      value: 255
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 255
+    6:
+      mode: range
+      min: 0
+      max: 224
+      mean: 112.0
+      std: 69.13
+    7:
+      mode: range
+      min: 14
+      max: 254
+      mean: 134.54
+      std: 76.15
+- id: '0x220'
+  period_ms: 8.171
+  jitter_ms: 3.352
+  dlc: 7
+  bytes:
+    0:
+      mode: range
+      min: 229
+      max: 249
+      mean: 237.64
+      std: 1.85
+    1:
+      mode: static
+      value: 3
+    2:
+      mode: range
+      min: 0
+      max: 255
+      mean: 145.87
+      std: 122.33
+    3:
+      mode: static
+      value: 3
+    4:
+      mode: range
+      min: 9
+      max: 24
+      mean: 10.63
+      std: 1.5
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: range
+      min: 45
+      max: 139
+      mean: 60.08
+      std: 4.0
+    7:
+      mode: static
+      value: 16
+- id: '0x164'
+  period_ms: 8.196
+  jitter_ms: 3.33
+  dlc: 7
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 8
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: range
+      min: 0
+      max: 15
+      mean: 7.5
+      std: 4.61
+    7:
+      mode: range
+      min: 0
+      max: 15
+      mean: 7.5
+      std: 4.61
+- id: '0x80'
+  period_ms: 10.0
+  jitter_ms: 0.399
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 23
+    2:
+      mode: range
+      min: 0
+      max: 254
+      mean: 192.63
+      std: 57.92
+    3:
+      mode: static
+      value: 9
+    4:
+      mode: range
+      min: 20
+      max: 36
+      mean: 25.95
+      std: 3.54
+    5:
+      mode: range
+      min: 19
+      max: 26
+      mean: 22.85
+      std: 1.19
+    6:
+      mode: range
+      min: 20
+      max: 36
+      mean: 26.03
+      std: 3.56
+    7:
+      mode: range
+      min: 0
+      max: 255
+      mean: 127.66
+      std: 73.75
+- id: '0x81'
+  period_ms: 10.0
+  jitter_ms: 0.401
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 127
+    1:
+      mode: static
+      value: 132
+    2:
+      mode: range
+      min: 96
+      max: 112
+      mean: 104.08
+      std: 4.93
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 0
+      max: 255
+      mean: 127.5
+      std: 74.07
+- id: '0x165'
+  period_ms: 10.0
+  jitter_ms: 0.141
+  dlc: 8
+  bytes:
+    0:
+      mode: range
+      min: 0
+      max: 255
+      mean: 26.74
+      std: 44.51
+    1:
+      mode: range
+      min: 7
+      max: 248
+      mean: 212.31
+      std: 48.49
+    2:
+      mode: static
+      value: 127
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: range
+      min: 0
+      max: 15
+      mean: 7.5
+      std: 4.61
+    7:
+      mode: range
+      min: 0
+      max: 255
+      mean: 148.27
+      std: 37.49
+- id: '0x18f'
+  period_ms: 10.0
+  jitter_ms: 0.71
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: range
+      min: 41
+      max: 54
+      mean: 45.15
+      std: 3.75
+    2:
+      mode: range
+      min: 20
+      max: 36
+      mean: 26.03
+      std: 3.56
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: range
+      min: 63
+      max: 69
+      mean: 63.31
+      std: 1.06
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x260'
+  period_ms: 10.0
+  jitter_ms: 0.811
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 5
+    1:
+      mode: range
+      min: 20
+      max: 36
+      mean: 26.03
+      std: 3.56
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 48
+    4:
+      mode: static
+      value: 255
+    5:
+      mode: range
+      min: 139
+      max: 148
+      mean: 141.87
+      std: 1.53
+    6:
+      mode: range
+      min: 73
+      max: 113
+      mean: 94.51
+      std: 2.63
+    7:
+      mode: range
+      min: 0
+      max: 63
+      mean: 32.08
+      std: 17.66
+- id: '0x2a0'
+  period_ms: 10.0
+  jitter_ms: 0.797
+  dlc: 8
+  bytes:
+    0:
+      mode: range
+      min: 2
+      max: 194
+      mean: 114.0
+      std: 73.32
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: range
+      min: 96
+      max: 112
+      mean: 104.08
+      std: 4.93
+    3:
+      mode: static
+      value: 157
+    4:
+      mode: static
+      value: 219
+    5:
+      mode: static
+      value: 12
+    6:
+      mode: static
+      value: 186
+    7:
+      mode: static
+      value: 2
+- id: '0x2b0'
+  period_ms: 10.0
+  jitter_ms: 0.395
+  dlc: 5
+  bytes:
+    0:
+      mode: range
+      min: 15
+      max: 58
+      mean: 28.61
+      std: 6.35
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 7
+    4:
+      mode: range
+      min: 0
+      max: 255
+      mean: 127.64
+      std: 74.72
+- id: '0x316'
+  period_ms: 10.0
+  jitter_ms: 0.799
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 5
+    1:
+      mode: range
+      min: 20
+      max: 36
+      mean: 25.95
+      std: 3.54
+    2:
+      mode: range
+      min: 0
+      max: 254
+      mean: 192.63
+      std: 57.92
+    3:
+      mode: static
+      value: 9
+    4:
+      mode: range
+      min: 20
+      max: 36
+      mean: 26.03
+      std: 3.56
+    5:
+      mode: range
+      min: 19
+      max: 26
+      mean: 22.85
+      std: 1.19
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 127
+- id: '0x329'
+  period_ms: 10.0
+  jitter_ms: 0.684
+  dlc: 8
+  bytes:
+    0:
+      mode: range
+      min: 15
+      max: 215
+      mean: 106.75
+      std: 75.26
+    1:
+      mode: range
+      min: 167
+      max: 186
+      mean: 177.76
+      std: 4.06
+    2:
+      mode: static
+      value: 127
+    3:
+      mode: static
+      value: 140
+    4:
+      mode: static
+      value: 17
+    5:
+      mode: range
+      min: 43
+      max: 48
+      mean: 45.07
+      std: 0.99
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 16
+- id: '0x370'
+  period_ms: 10.0
+  jitter_ms: 0.432
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 255
+    1:
+      mode: static
+      value: 32
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 128
+    4:
+      mode: static
+      value: 255
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 40
+      max: 236
+      mean: 134.0
+      std: 72.58
+- id: '0x43f'
+  period_ms: 10.0
+  jitter_ms: 0.528
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 16
+    1:
+      mode: static
+      value: 80
+    2:
+      mode: static
+      value: 96
+    3:
+      mode: static
+      value: 255
+    4:
+      mode: range
+      min: 75
+      max: 98
+      mean: 88.56
+      std: 6.5
+    5:
+      mode: range
+      min: 0
+      max: 252
+      mean: 125.16
+      std: 97.32
+    6:
+      mode: static
+      value: 9
+    7:
+      mode: static
+      value: 0
+- id: '0x440'
+  period_ms: 10.0
+  jitter_ms: 0.494
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 255
+    1:
+      mode: range
+      min: 0
+      max: 240
+      mean: 120.0
+      std: 89.44
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 255
+    5:
+      mode: range
+      min: 0
+      max: 252
+      mean: 123.31
+      std: 97.2
+    6:
+      mode: static
+      value: 9
+    7:
+      mode: static
+      value: 0
+- id: '0x545'
+  period_ms: 10.0
+  jitter_ms: 0.731
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 216
+    1:
+      mode: range
+      min: 7
+      max: 25
+      mean: 14.5
+      std: 2.45
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: range
+      min: 136
+      max: 142
+      mean: 138.52
+      std: 0.97
+    4:
+      mode: range
+      min: 0
+      max: 255
+      mean: 35.78
+      std: 53.73
+    5:
+      mode: range
+      min: 0
+      max: 255
+      mean: 12.31
+      std: 54.66
+    6:
+      mode: range
+      min: 0
+      max: 255
+      mean: 32.66
+      std: 45.91
+    7:
+      mode: range
+      min: 0
+      max: 255
+      mean: 8.05
+      std: 44.59
+- id: '0x1f1'
+  period_ms: 13.891
+  jitter_ms: 7.877
+  dlc: 7
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x4b0'
+  period_ms: 13.891
+  jitter_ms: 7.895
+  dlc: 7
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x4b1'
+  period_ms: 13.892
+  jitter_ms: 7.887
+  dlc: 7
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 1
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 1
+- id: '0x4f0'
+  period_ms: 19.999
+  jitter_ms: 1.171
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: range
+      min: 0
+      max: 254
+      mean: 126.97
+      std: 73.93
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 206
+    6:
+      mode: static
+      value: 210
+    7:
+      mode: static
+      value: 4
+- id: '0x4f2'
+  period_ms: 19.999
+  jitter_ms: 1.159
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: range
+      min: 0
+      max: 240
+      mean: 120.02
+      std: 73.77
+    3:
+      mode: static
+      value: 56
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 128
+      max: 255
+      mean: 191.49
+      std: 36.97
+- id: '0x382'
+  period_ms: 20.0
+  jitter_ms: 0.528
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 64
+    1:
+      mode: static
+      value: 254
+    2:
+      mode: static
+      value: 15
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 0
+      max: 12
+      mean: 6.0
+      std: 4.47
+- id: '0x350'
+  period_ms: 20.001
+  jitter_ms: 0.416
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 5
+    1:
+      mode: static
+      value: 32
+    2:
+      mode: range
+      min: 4
+      max: 244
+      mean: 123.99
+      std: 73.76
+    3:
+      mode: static
+      value: 121
+    4:
+      mode: range
+      min: 123
+      max: 136
+      mean: 127.94
+      std: 3.65
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 0
+      max: 255
+      mean: 127.73
+      std: 73.85
+- id: '0x2c0'
+  period_ms: 31.641
+  jitter_ms: 31.848
+  dlc: 5
+  bytes:
+    0:
+      mode: static
+      value: 61
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x5a0'
+  period_ms: 44.236
+  jitter_ms: 44.543
+  dlc: 4
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x5a2'
+  period_ms: 44.24
+  jitter_ms: 44.633
+  dlc: 2
+  bytes:
+    0:
+      mode: static
+      value: 37
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 165
+    3:
+      mode: static
+      value: 1
+- id: '0x4f1'
+  period_ms: 99.995
+  jitter_ms: 0.704
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 192
+    1:
+      mode: static
+      value: 22
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x690'
+  period_ms: 99.995
+  jitter_ms: 1.013
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 3
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 1
+    3:
+      mode: static
+      value: 32
+    4:
+      mode: range
+      min: 128
+      max: 160
+      mean: 137.46
+      std: 14.6
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: range
+      min: 0
+      max: 60
+      mean: 30.0
+      std: 18.44
+    7:
+      mode: static
+      value: 8
+- id: '0x110'
+  period_ms: 100.0
+  jitter_ms: 0.133
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 224
+    1:
+      mode: static
+      value: 60
+    2:
+      mode: static
+      value: 48
+    3:
+      mode: static
+      value: 9
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x510'
+  period_ms: 100.0
+  jitter_ms: 0.463
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0xa0'
+  period_ms: 100.001
+  jitter_ms: 4.31
+  dlc: 8
+  bytes:
+    0:
+      mode: range
+      min: 62
+      max: 79
+      mean: 67.71
+      std: 4.89
+    1:
+      mode: range
+      min: 117
+      max: 131
+      mean: 125.22
+      std: 3.03
+    2:
+      mode: range
+      min: 0
+      max: 254
+      mean: 192.3
+      std: 56.81
+    3:
+      mode: static
+      value: 9
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: range
+      min: 34
+      max: 38
+      mean: 35.94
+      std: 0.83
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 2
+- id: '0xa1'
+  period_ms: 100.001
+  jitter_ms: 4.345
+  dlc: 8
+  bytes:
+    0:
+      mode: range
+      min: 124
+      max: 137
+      mean: 128.05
+      std: 1.27
+    1:
+      mode: range
+      min: 134
+      max: 139
+      mean: 137.2
+      std: 2.38
+    2:
+      mode: static
+      value: 128
+    3:
+      mode: static
+      value: 128
+    4:
+      mode: range
+      min: 34
+      max: 41
+      mean: 36.54
+      std: 2.07
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x5e4'
+  period_ms: 100.002
+  jitter_ms: 0.846
+  dlc: 3
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 2
+    2:
+      mode: static
+      value: 0
+- id: '0x587'
+  period_ms: 100.003
+  jitter_ms: 0.775
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 0
+      max: 14
+      mean: 7.0
+      std: 4.32
+- id: '0x59b'
+  period_ms: 100.004
+  jitter_ms: 0.74
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: range
+      min: 0
+      max: 196
+      mean: 102.0
+      std: 72.58
+- id: '0x18'
+  period_ms: 199.885
+  jitter_ms: 4.2
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 40
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 112
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 32
+    7:
+      mode: static
+      value: 16
+- id: '0x50'
+  period_ms: 199.885
+  jitter_ms: 4.095
+  dlc: 4
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: range
+      min: 128
+      max: 130
+      mean: 128.59
+      std: 0.91
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+- id: '0x5f0'
+  period_ms: 199.964
+  jitter_ms: 0.742
+  dlc: 2
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+- id: '0x51a'
+  period_ms: 199.989
+  jitter_ms: 0.782
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 3
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x517'
+  period_ms: 200.0
+  jitter_ms: 0.532
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x120'
+  period_ms: 200.001
+  jitter_ms: 0.117
+  dlc: 4
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+- id: '0x34'
+  period_ms: 1000.005
+  jitter_ms: 0.106
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x42'
+  period_ms: 1000.05
+  jitter_ms: 0.128
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 255
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 255
+    3:
+      mode: static
+      value: 255
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x43'
+  period_ms: 1000.05
+  jitter_ms: 0.128
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 1
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 0
+    4:
+      mode: static
+      value: 0
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
+- id: '0x44'
+  period_ms: 1000.05
+  jitter_ms: 0.307
+  dlc: 8
+  bytes:
+    0:
+      mode: static
+      value: 0
+    1:
+      mode: static
+      value: 0
+    2:
+      mode: static
+      value: 0
+    3:
+      mode: static
+      value: 255
+    4:
+      mode: static
+      value: 111
+    5:
+      mode: static
+      value: 0
+    6:
+      mode: static
+      value: 0
+    7:
+      mode: static
+      value: 0
